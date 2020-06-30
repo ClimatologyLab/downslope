@@ -1,0 +1,10 @@
+function [WDIR] =winddir(DATAU,DATAV);
+WDIR=atan(DATAV./DATAU);
+ f=find(DATAU<0);WDIR(f)=pi+WDIR(f);
+ f=find(WDIR<0);WDIR(f)=pi*2+WDIR(f);
+WDIR=WDIR*180/pi;
+f=find(WDIR<90);WDIR(f)=WDIR(f)+360;WDIR=WDIR-90;
+f=find(WDIR<180);WDIR(f)=WDIR(f)+360;WDIR=WDIR+180;
+ WDIR=WDIR-360;
+WDIR=360-WDIR;
+WDIR=int16(WDIR);
