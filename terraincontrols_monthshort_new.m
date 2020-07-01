@@ -13,7 +13,7 @@ clear el
 
 header=permute(repmat(header,[1 1 1 size(stability,3)]),[1 2 4 3]);
 header2=permute(repmat(header2,[1 1 1 size(stability,3)]),[1 2 4 3]);
-
+nlevels=size(u,4);
 
 for j=1:4
     dataout=int8(zeros(size(u,3),size(u,1),size(u,2)));
@@ -28,17 +28,17 @@ for j=1:4
     end
 % set all data below terrain to NaN
 data=int8(data).*int8(header);
-    for i=1:11
+    for i=1:nlevels
       	ll=i:i+2; % wind level
       	lp=i-1:i+1; % pot temp level
       	ls=i:i+3; % stability level
       	lw=1:i+1; % omega level
 
        
-       	ll=intersect(1:11,ll);
-       	lp=intersect(1:11,lp);
-       	ls=intersect(1:11,ls);
-       	lw=intersect(1:11,lw);
+       	ll=intersect(1:nlevels,ll);
+       	lp=intersect(1:nlevels,lp);
+       	ls=intersect(1:nlevels,ls);
+       	lw=intersect(1:nlevels,lw);
         fy=find(aa==i);
          switch j,
              case 1, datatemp=permute(max(abs(data(:,:,:,ll)),[],4),[3 1 2]);llmean=sign(permute(nanmean(data(:,:,:,ll),4),[3 1 2]));
