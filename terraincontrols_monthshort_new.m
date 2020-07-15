@@ -17,17 +17,16 @@ nlevels=size(u,4);
 
 for j=1:4
     dataout=int8(zeros(size(u,3),size(u,1),size(u,2)));
-    dataout2=int8(zeros(size(u,3),size(u,1),size(u,2)));
     switch j,
-        case 1, data=u.*int8(header2);aa=atop;
-        case 2, data=v.*int8(header2);aa=atop;
+        case 1, data=u.*single(header2);aa=atop;
+        case 2, data=v.*single(header2);aa=atop;
         case 3, data=stability.*int8(header2);aa=atop;
-        case 4, data=w;aa=atop;
+        case 4, data=w.*single(header);aa=atop;
         case 5, data=dpotdx;aa=atop;
         case 6, data=dpotdy;aa=atop;
     end
 % set all data below terrain to NaN
-data=int8(data).*int8(header);
+% data=int8(data).*int8(header);
     for i=1:nlevels
       	ll=i:i+2; % wind level
       	lp=i-1:i+1; % pot temp level
@@ -50,10 +49,9 @@ data=int8(data).*int8(header);
     end
     end
     dataout=permute(dataout,[2 3 1]);
-    dataout2=permute(dataout2,[2 3 1]);
     switch j,
-        case 1, mntwndu=dataout.*dataout2;
-        case 2, mntwndv=dataout.*dataout2;
+        case 1, mntwndu=dataout;
+        case 2, mntwndv=dataout;
         case 3, mntstab=dataout;
         case 4, mntomega=dataout;
         case 5, mntdpdx=dataout;
