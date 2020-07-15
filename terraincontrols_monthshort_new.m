@@ -19,8 +19,8 @@ for j=1:4
     dataout=int8(zeros(size(u,3),size(u,1),size(u,2)));
     dataout2=int8(zeros(size(u,3),size(u,1),size(u,2)));
     switch j,
-        case 1, data=u;aa=atop;
-        case 2, data=v;aa=atop;
+        case 1, data=u.*int8(header2);aa=atop;
+        case 2, data=v.*int8(header2);aa=atop;
         case 3, data=stability.*int8(header2);aa=atop;
         case 4, data=w;aa=atop;
         case 5, data=dpotdx;aa=atop;
@@ -31,7 +31,7 @@ data=int8(data).*int8(header);
     for i=1:nlevels
       	ll=i:i+2; % wind level
       	lp=i-1:i+1; % pot temp level
-      	ls=i:i+3; % stability level
+      	ls=i:i+2; % stability level
       	lw=1:i+1; % omega level
 
        
@@ -41,20 +41,13 @@ data=int8(data).*int8(header);
        	lw=intersect(1:nlevels,lw);
         fy=find(aa==i);
          switch j,
-             case 1, datatemp=permute(max(abs(data(:,:,:,ll)),[],4),[3 1 2]);llmean=sign(permute(nanmean(data(:,:,:,ll),4),[3 1 2]));
-             case 2, datatemp=permute(max(abs(data(:,:,:,ll)),[],4),[3 1 2]);llmean=sign(permute(nanmean(data(:,:,:,ll),4),[3 1 2]));
+             case 1, datatemp=permute(nanmean(abs(data(:,:,:,ll)),[],4),[3 1 2]);
+             case 2, datatemp=permute(nanmean(abs(data(:,:,:,ll)),[],4),[3 1 2]);
              case 3, datatemp=permute(max(data(:,:,:,ls),[],4),[3 1 2]);
              case 4, datatemp=permute(max(data(:,:,:,lw),[],4),[3 1 2]);
             case 5, datatemp=permute(nanmean(data(:,:,:,lp),4),[3 1 2]);
             case 6, datatemp=permute(nanmean(data(:,:,:,lp),4),[3 1 2]);
     end
-
-        for jj=1:size(datatemp,1)
-            dataout(jj,fy)=datatemp(jj,fy);
-	   if j<=2
-dataout2(jj,fy)=llmean(jj,fy);
-end
-        end
     end
     dataout=permute(dataout,[2 3 1]);
     dataout2=permute(dataout2,[2 3 1]);
