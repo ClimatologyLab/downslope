@@ -48,7 +48,7 @@ for j=1:4
             case 6, datatemp=permute(nanmean(data(:,:,:,lp),4),[3 1 2]);
     end
     end
-    dataout=permute(dataout,[2 3 1]);
+    dataout=permute(datatemp,[2 3 1]);
     switch j,
         case 1, mntwndu=dataout;
         case 2, mntwndv=dataout;
