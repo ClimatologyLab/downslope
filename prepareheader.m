@@ -1,6 +1,6 @@
 function [header,header2]=prepareheader(lon,lat,levels,abottom,atop);
-header=logical(ones(size(lat,1),size(lon,2),length(levels))); % this sets anything below era terrain to missing
-header2=logical(ones(size(lat,1),size(lon,2),length(levels)));
+header=logical(ones(length(lat),length(lon),length(levels))); % this sets anything below era terrain to missing
+header2=header;
 for i=1:size(header,1);
 for j=1:size(header,2);
 o=abottom(i,j);
