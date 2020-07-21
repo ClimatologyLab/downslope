@@ -38,10 +38,9 @@ for j=1:4
        	lp=intersect(1:nlevels,lp);
        	ls=intersect(1:nlevels,ls);
        	lw=intersect(1:nlevels,lw);
-        fy=find(aa==i);
          switch j,
-             case 1, datatemp=permute(nanmean(abs(data(:,:,:,ll)),[],4),[3 1 2]);
-             case 2, datatemp=permute(nanmean(abs(data(:,:,:,ll)),[],4),[3 1 2]);
+             case 1, datatemp=permute(nanmean(data(:,:,:,ll),4),[3 1 2]);
+             case 2, datatemp=permute(nanmean(data(:,:,:,ll),4),[3 1 2]);
              case 3, datatemp=permute(max(data(:,:,:,ls),[],4),[3 1 2]);
              case 4, datatemp=permute(max(data(:,:,:,lw),[],4),[3 1 2]);
             case 5, datatemp=permute(nanmean(data(:,:,:,lp),4),[3 1 2]);
