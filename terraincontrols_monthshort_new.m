@@ -38,6 +38,7 @@ for j=1:4
        	lp=intersect(1:nlevels,lp);
        	ls=intersect(1:nlevels,ls);
        	lw=intersect(1:nlevels,lw);
+        fy=find(aa==i);
          switch j,
              case 1, datatemp=permute(nanmean(data(:,:,:,ll),4),[3 1 2]);
              case 2, datatemp=permute(nanmean(data(:,:,:,ll),4),[3 1 2]);
@@ -46,6 +47,8 @@ for j=1:4
             case 5, datatemp=permute(nanmean(data(:,:,:,lp),4),[3 1 2]);
             case 6, datatemp=permute(nanmean(data(:,:,:,lp),4),[3 1 2]);
     end
+    % set information for grids at each pressure level
+    dataout(:,fy)=datatemp(:,fy); 
     end
     dataout=permute(datatemp,[2 3 1]);
     switch j,
