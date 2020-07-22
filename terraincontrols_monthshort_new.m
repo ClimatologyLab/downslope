@@ -1,4 +1,4 @@
-function [topstability,downomega,crosswind,wd]=terraincontrols_month_new(lon,lat,atop,abottom,header2,u,v,w,t,z,level);
+function [topstability,downomega,crosswind,wd]=terraincontrols_month_new(lon,lat,atop,abottom,header,header2,u,v,w,t,z,level);
 
 t=permute(t,[1 2 4 3]);
 z=permute(z,[1 2 4 3]);
@@ -11,6 +11,7 @@ w=permute(w,[1 2 4 3]);
 stability=int8(stability*1e4);
 
 header2=permute(repmat(header2,[1 1 1 size(stability,3)]),[1 2 4 3]);
+header=permute(repmat(header,[1 1 1 size(stability,3)]),[1 2 4 3]);
 
 
 for j=1:4
@@ -19,7 +20,7 @@ for j=1:4
         case 1, data=u.*single(header2);aa=atop;
         case 2, data=v.*single(header2);aa=atop;
         case 3, data=stability.*int8(header2);aa=atop;
-        case 4, data=w;aa=atop;
+        case 4, data=w.*single(header);aa=atop;
         case 5, data=dpotdx;aa=atop;
         case 6, data=dpotdy;aa=atop;
     end
