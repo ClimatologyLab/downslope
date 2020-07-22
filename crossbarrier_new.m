@@ -67,4 +67,5 @@ crossbarrier32(:,:,ll)=interp2(alon,alat,crossbarrierwind32(:,:,ll),lon,lat);
     end
 end
 
+% take the maximum of crossbarrier wind calculated at these two scales
 crossbarrierwind=max(crossbarrier4,crossbarrier32);
